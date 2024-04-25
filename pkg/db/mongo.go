@@ -42,7 +42,7 @@ func ConnectWithMongodb() *mongo.Client {
 var Client *mongo.Client = ConnectWithMongodb()
 
 // OpenCollection get collection
-func OpenCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-	var collection *mongo.Collection = client.Database("candy").Collection(collectionName)
+func OpenCollection(client *mongo.Client, dbName, collectionName string) *mongo.Collection {
+	var collection *mongo.Collection = client.Database(dbName).Collection(collectionName)
 	return collection
 }

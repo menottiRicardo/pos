@@ -49,10 +49,6 @@ func main() {
 		}
 	}(client, context.Background())
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, Fiber!")
-	})
-
 	// Setup routes
 	setupRoutes(app)
 
@@ -60,5 +56,8 @@ func main() {
 }
 
 func setupRoutes(app *fiber.App) {
+	app.Put("/menu/items/:id", menu.UpdateMenuItem)
 	app.Post("/menu/items", menu.CreateMenuItem)
+	app.Get("/menu/items/:id", menu.GetMenuItem)
+	app.Delete("/menu/items/:id", menu.DeleteMenuItem)
 }

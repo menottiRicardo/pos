@@ -28,3 +28,38 @@ func CreateMenuItem(c *fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusCreated).JSON(item)
 }
+
+func GetMenuItem(c *fiber.Ctx) error {
+	id := c.Params("id")
+	item, err := GetItem(id)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Item not found"})
+	}
+
+	return c.JSON(item)
+}
+
+func UpdateMenuItem(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var updateData MenuItem
+	if err := c.BodyParser(&updateData); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	updatedItem, err := UpdateItem(id, updateData) // Database interaction
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(updatedItem)
+}
+
+func DeleteMenuItem(c *fiber.Ctx) error {
+	id := c.Params("id")
+	itemId, err := DeleteItem(id)
+	if err != nil { // Database interaction
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{"id": itemId})
+}
