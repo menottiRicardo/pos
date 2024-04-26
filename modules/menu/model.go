@@ -14,14 +14,15 @@ type MenuItem struct {
 
 // MenuCategory represents a category in the menu
 type MenuCategory struct {
-	ID    primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-	Name  string             `bson:"name" json:"name" validate:"required"`
-	Items []MenuItem         `bson:"items" json:"items"`
+	ID      primitive.ObjectID   `bson:"_id,omitempty" json:"id"`
+	Name    string               `bson:"name" json:"name" validate:"required"`
+	ItemIDs []primitive.ObjectID `bson:"itemIds" json:"itemIds"`
+	MenuID  primitive.ObjectID   `bson:"menuId" json:"menuId"`
 }
 
 // Menu represents the complete menu structure
 type Menu struct {
-	ID         primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-	Name       string             `bson:"name" json:"name" validate:"required"`
-	Categories []MenuCategory     `bson:"categories" json:"categories"`
+	ID            primitive.ObjectID   `bson:"_id,omitempty" json:"id"`
+	Name          string               `bson:"name" json:"name" validate:"required"`
+	CategoriesIDs []primitive.ObjectID `bson:"categories" json:"categories"`
 }

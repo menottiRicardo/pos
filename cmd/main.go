@@ -56,8 +56,21 @@ func main() {
 }
 
 func setupRoutes(app *fiber.App) {
+
+	// menu items
+
 	app.Put("/menu/items/:id", menu.UpdateMenuItem)
 	app.Post("/menu/items", menu.CreateMenuItem)
 	app.Get("/menu/items/:id", menu.GetMenuItem)
 	app.Delete("/menu/items/:id", menu.DeleteMenuItem)
+
+	// categories
+	app.Post("/menu/categories", menu.CreateCategoryHandler)
+	app.Put("/menu/categories/:id", menu.UpdateCategoryHandler)
+	app.Get("/menu/categories/:id", menu.GetCategoryHandler)
+
+	// menu
+	app.Post("/menu", menu.CreateMenuHandler)
+	app.Put("/menu/:id", menu.UpdateMenuHandler)
+	app.Get("/menu/:id", menu.GetMenuHandler)
 }
